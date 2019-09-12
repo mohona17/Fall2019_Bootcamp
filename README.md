@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Assignment 2: Persisting data using MongoDB and Mongoose
 
 Our application at this point has an issue one majore issue... 
@@ -36,6 +37,8 @@ Instructions:
 5. Complete the functions in `queries.js`
 - Once complete run `node queries.js` //It should print out all the listings
 =======
+=======
+>>>>>>> parent of ec952c7... Update README.md
 # Fall2019_Bootcamp - Bootcamp #1 -  Need to Update
 This is a MERN Bootcamp for CEN 3031 Fall 2019
 >>>>>>> parent of ec952c7... Update README.md
