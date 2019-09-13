@@ -24,7 +24,7 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
   //Parse JSON
   listingData = data; //save the data in the listingData variable, 
   let parseddata = JSON.parse(listingData);
-  console.log(parseddata);
+  //console.log(parseddata);
 
   //Saves the parsed data in the collection of the mongoose model instantiated before 
   //Listing.collection.save(parseddata); this is deprecated
