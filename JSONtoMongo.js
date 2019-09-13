@@ -15,6 +15,7 @@ mongoose.connect(config.db.uri, { useNewUrlParser: true ,useUnifiedTopology:true
 
 //Creating a document for DB. Listing is the model instantiated in ListingSchema.js
 Listing.createCollection(); 
+Listing.collection.name = "listings";
 
 //Read File ------------------------------------------
 fs.readFile('listings.json', 'utf8', function(err, data) {
@@ -23,10 +24,13 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
 
   //Parse JSON
   listingData = data; //save the data in the listingData variable, 
-  let parseddata = JSON.parse(listingData);
-  //console.log(parseddata);
+  var parseddata = JSON.parse(listingData);
+  console.log("Uploaded");
 
   //Saves the parsed data in the collection of the mongoose model instantiated before 
-  //Listing.collection.save(parseddata); this is deprecated
-  Listing.collection.insertOne(parseddata);
+  //goes through array that JSON file has
+  parseddata.entries.forEach(element => {
+    Listing.collection.insertOne(element);
+  });
+
 }); 
