@@ -25,7 +25,7 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
   //Parse JSON
   listingData = data; //save the data in the listingData variable, 
   var parseddata = JSON.parse(listingData);
-  console.log("Uploaded");
+  console.log("Uploading");
 
   //Saves the parsed data in the collection of the mongoose model instantiated before 
   //goes through array that JSON file has
