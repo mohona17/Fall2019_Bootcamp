@@ -41,12 +41,12 @@ var updatePhelpsLab = function() {
     Correct Address: 1953 Museum Rd, Gainesville, FL 32603
    */
 
-  //Printing old doc
-    // Listing.collection.findOne({code:"PHL", name: "Phelps Laboratory"},function(err,oldPhelps){
-    //   if (err) throw err;
-    //   console.log("old:");
-    //   console.log(oldPhelps);
-    // });
+  /* Note to self: First time printing not updated because (from Piazza): 
+  "When you console.log the first time, it should return the entry 
+  before it was updated. The second time your run it, the entry has already 
+  been updated, so you get the log of the updated output. When you run your 
+  queries.js, your first output was correct, but you need to check that it was 
+  updated correctly when you call the function to print all your entries."*/
 
   Listing.collection.findOneAndUpdate({code:"PHL",name: "Phelps Laboratory"}, 
   {$set:{"address" : "1953 Museum Rd, Gainesville, FL 32603"}}, function(err, phelps){
