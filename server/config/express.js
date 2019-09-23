@@ -32,7 +32,14 @@ module.exports.init = function() {
      use the listings router middleware for requests to the api 
      check the variables list above
   */
-  app.use('/api/listings');
+
+  //Fixing the app configurations. I believe this below function satisfies the task in the Readme that says:
+  //Right now, we only serve up index.html and the server hangs for all the other routes in our express.js file
+  //app.use('/api/listings');
+  app.use('/api/listings',function (req, res, next) {
+    //console.log("using middleware");
+    next(); 
+  })
 
 
    /* Request Handler for coordinates
@@ -53,6 +60,14 @@ module.exports.init = function() {
       If no path segments are passed, path.resolve() will return the absolute path of the current working directory.
    */
    //res.sendFile(path.resolve(...));
+
+   res.sendFile(path.resolve(), options, function (err) {
+    if (err) {
+      next(err)
+    } else {
+      console.log('Sent:', fileName)
+    }
+  })
   });
   
   return app;
