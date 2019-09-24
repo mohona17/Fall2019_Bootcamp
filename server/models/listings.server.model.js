@@ -4,6 +4,8 @@
 var mongoose = require('mongoose'), 
     Schema = mongoose.Schema;
 
+
+
 /* Create your schema */
 var listingSchema = new Schema({
   /* your code here from Bootcamp Assignment #2 - ListingSchema.js File*/
