@@ -57,9 +57,22 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   var listing = req.listing;
 
+  // Validate Request
+  if(!req.body.content) {
+    return res.status(400).send({
+        message: "Content cannot be empty"
+    });
+  }
   /* Replace the listings's properties with the new properties found in req.body */
- 
-  /*save the coordinates (located in req.results if there is an address property) */
+  Listing.findByIdAndUpdate(req.params.id, {
+    name: req.body.name,
+    code: req.body.code,
+    coordinates: req.body.coordinates,
+    address: req.body.address
+
+  })
+
+  /*TODO save the coordinates (located in req.results if there is an address property) */
  
   /* Save the listing */
 
