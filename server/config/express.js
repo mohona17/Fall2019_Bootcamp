@@ -62,9 +62,9 @@ module.exports.init = function() {
       //res.sendFile(path.resolve(...));
 
       //Not sure if this works
-      res.sendFile(path.resolve('index.html'), function (err) {
+      res.sendFile(path.resolve(), function (err) {
         if (err) {
-          next(err)
+          throw err
         } else {
           console.log('Sent:', path.resolve('index.html'))
         }

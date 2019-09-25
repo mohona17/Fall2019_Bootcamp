@@ -53,26 +53,58 @@ exports.read = function(req, res) {
 /* Update a listing - note the order in which this function is called by the router*/
 exports.update = function(req, res) {
   var listing = req.listing;
-
+  //TODO
+  if(!listing.body) {
+    return res.status(400).send({
+        message: "Listing does not exist"
+    }); 
+  }
   /* Replace the listings's properties with the new properties found in req.body */
- 
-  /*save the coordinates (located in req.results if there is an address property) */
+  Listing.findByIdAndUpdate(req.params.id, {
+    name: req.body.name, 
+    code: req.body.code    
+  });
+   /*save the coordinates (located in req.results if there is an address property) */
+  if(req.results) {
+    listing.coordinates = {
+      latitude: req.results.lat, 
+      longitude: req.results.lng
+    };
+  }
  
   /* Save the listing */
-
+  listing.save(function(err) {
+    if(err) {
+      console.log(err);
+      res.status(400).send(err);
+    } else {
+      res.json(listing);
+      console.log(listing)
+    }
+  });
 };
 
 /* Delete a listing */
+//TODO
 exports.delete = function(req, res) {
   var listing = req.listing;
-
-  /* Add your code to remove the listins */
+  Listing.collection.findOneAndDelete({code: listing.code, name: listing.name},function(err,res){
+    res.status(400).send(err);
+});
 
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
-exports.list = function(req, res) {
-  /* Add your code */
+exports.list = function(req, res, next) {
+  //TODO
+  Listing.find(function(err, listing) {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      req.listing = listing;
+      next();
+    }
+  });
 };
 
 /* 
