@@ -62,13 +62,7 @@ module.exports.init = function() {
       //res.sendFile(path.resolve(...));
 
       //Not sure if this works
-      res.sendFile(path.resolve(), function (err) {
-        if (err) {
-          throw err
-        } else {
-          console.log('Sent:', path.resolve('index.html'))
-        }
-      })
+      res.sendFile(path.resolve(__dirname + '/../../client/index.html')); 
   });
   
   return app;
