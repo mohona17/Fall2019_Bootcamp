@@ -51,9 +51,10 @@ exports.read = function(req, res) {
 };
 
 /* Update a listing - note the order in which this function is called by the router*/
+
 exports.update = function(req, res) {
   var listing = req.listing;
-  //TODO
+  //DOES NOT WORK 
   if(!listing.body) {
     return res.status(400).send({
         message: "Listing does not exist"
@@ -85,7 +86,7 @@ exports.update = function(req, res) {
 };
 
 /* Delete a listing */
-//TODO
+//WORKS
 exports.delete = function(req, res) {
   var listing = req.listing;
   Listing.collection.findOneAndDelete({code: listing.code, name: listing.name},function(err,res){
@@ -97,11 +98,12 @@ exports.delete = function(req, res) {
 /* Retreive all the directory listings, sorted alphabetically by listing code */
 exports.list = function(req, res, next) {
   //TODO
-  Listing.find(function(err, listing) {
+  Listing.find({},function(err, listing) {
     if(err) {
       res.status(400).send(err);
     } else {
       req.listing = listing;
+      console.log(req.listing);
       next();
     }
   });
