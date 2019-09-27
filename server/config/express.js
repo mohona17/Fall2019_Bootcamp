@@ -36,10 +36,10 @@ module.exports.init = function() {
   //Fixing the app configurations. I believe this below function satisfies the task in the Readme that says:
   //Right now, we only serve up index.html and the server hangs for all the other routes in our express.js file
   //app.use('/api/listings');
-  app.use('/api/listings',function (req, res, next) {
+  app.use('/api/listings', listingsRouter);//,function (req, res, next) {
     //console.log("using middleware");
-    next(); 
-  })
+    //next(); 
+  //})
 
 
    /* Request Handler for coordinates
