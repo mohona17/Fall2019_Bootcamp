@@ -40,7 +40,7 @@ exports.create = function (req, res) {
       res.status(400).send(err);
     } else {
       res.json(listing);
-      //console.log(listing)
+      console.log(listing)
     }
   });
 };
@@ -57,65 +57,31 @@ exports.read = function (req, res) {
 
 /* Update a listing - note the order in which this function is called by the router*/
 
+// Handle update contact info
 exports.update = function (req, res) {
-  var listing = req.listing;
-  Listing.findById(req.params.id, function (err, listing) {
-
-    //Check for an error
+  Listing.findById(req.params.listingId, function (err, listing) {
     if (err)
       res.send(err);
 
-    //Update the contact information
-    listing.name = req.body.name;
+    listing.name = req.body.name ? req.body.name : listing.name;
     listing.code = req.body.code;
     listing.address = req.body.address;
     if (req.results) {
       listing.coordinates = {
         latitude: req.results.lat,
         longitude: req.results.lng
-      }
-    }
+      }};
 
-    listing.save(function (err) {
-      if (err)
-        res.status(400).send(err);
-      res.json({
-        message: 'Updated listing',
-        data: listing
+      listing.save(function (err) {
+        if (err)
+          res.json(err);
+        res.json({
+          message: 'Listing updated',
+          data: listing
+        });
       });
-    });
-  });
+});
 };
-// //DOES NOT WORK 
-// if(!listing.body) {
-//   return res.status(400).send({
-//       message: "Listing does not exist"
-//   }); 
-// }
-// /* Replace the listings's properties with the new properties found in req.body */
-// Listing.findByIdAndUpdate(req.params.id, {
-//   name: req.body.name, 
-//   code: req.body.code    
-// });
-//  /*save the coordinates (located in req.results if there is an address property) */
-// if(req.results) {
-//   listing.coordinates = {
-//     latitude: req.results.lat, 
-//     longitude: req.results.lng
-//   };
-// }
-
-// /* Save the listing */
-// listing.save(function(err) {
-//   if(err) {
-//     console.log(err);
-//     res.status(400).send(err);
-//   } else {
-//     res.json(listing);
-//     console.log(listing)
-//   }
-//});
-//};
 //----------------------------------------------------------------------------------------------
 /* Delete a listing */
 exports.delete = function (req, res) {
