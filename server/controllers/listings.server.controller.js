@@ -68,21 +68,17 @@ exports.update = function (req, res) {
     listing.code = req.body.code;
 
     if(listing.address) listing.address = req.body.address;
-    res.send(req.results);
 
-    /*if (req.results) {
-      object.coordinates = {
-        latitude: req.results.lat,
-        longitude: req.results.lng
-      }};*/
+    if (req.body.coordinates) {
+      listing.coordinates = {
+        latitude: req.body.coordinates.latitude,
+        longitude: req.body.coordinates.longitude
+      }};
 
     listing.save(function (err) {
       if (err)
         res.json(err);
-      res.json({
-        message: 'Listing updated',
-        data: listing
-      });
+      res.json(listing);
     });
   });
 };
