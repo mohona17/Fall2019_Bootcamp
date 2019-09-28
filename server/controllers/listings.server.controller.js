@@ -58,36 +58,40 @@ exports.read = function (req, res) {
 /* Update a listing - note the order in which this function is called by the router*/
 
 exports.update = function (req, res) {
-  Listing.findById(req.listing._id, function (err, listing) {
-    if (err) res.json(err);
+    var listing = req.listing;
+  Listing.findById(listing._id, function (err, listing) {
+    if (err) {
+      res.json(err);
+    }
 
     listing.name = req.body.name;
     listing.code = req.body.code;
 
     if(listing.address) listing.address = req.body.address;
+    res.send(req.results);
 
-    if (req.results) {
-      listing.coordinates = {
+    /*if (req.results) {
+      object.coordinates = {
         latitude: req.results.lat,
         longitude: req.results.lng
-      }};
+      }};*/
 
-      listing.save(function (err) {
-        if (err)
-          res.json(err);
-        res.json({
-          message: 'Listing updated',
-          data: listing
-        });
+    listing.save(function (err) {
+      if (err)
+        res.json(err);
+      res.json({
+        message: 'Listing updated',
+        data: listing
       });
-});
+    });
+  });
 };
 //----------------------------------------------------------------------------------------------
 /* Delete a listing */
 exports.delete = function (req, res) {
   var listing = req.listing;
-  Listing.collection.findOneAndDelete({_id: listing._id}, function (err, listing) {
-    if (err){
+  Listing.collection.findOneAndDelete({ _id: listing._id }, function (err, listing) {
+    if (err) {
       res.status(400);
       res.send(err);
     }
