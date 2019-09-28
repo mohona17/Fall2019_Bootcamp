@@ -57,16 +57,15 @@ exports.read = function (req, res) {
 
 /* Update a listing - note the order in which this function is called by the router*/
 
-// Handle update contact info
 exports.update = function (req, res) {
-  Listing.findById(req.params.listingId, function (err, listing) {
-    if (err)
-      res.send(err);
+  Listing.findById(req.listing._id, function (err, listing) {
+    if (err) res.json(err);
 
-    res.send(req.params);
-    listing.name = req.body.name ? req.body.name : listing.name;
-    listing.code = req.body.gender;
-    listing.address = req.body.email;
+    listing.name = req.body.name;
+    listing.code = req.body.code;
+
+    if(listing.address) listing.address = req.body.address;
+
     if (req.results) {
       listing.coordinates = {
         latitude: req.results.lat,
@@ -83,36 +82,6 @@ exports.update = function (req, res) {
       });
 });
 };
-// //DOES NOT WORK 
-// if(!listing.body) {
-//   return res.status(400).send({
-//       message: "Listing does not exist"
-//   }); 
-// }
-// /* Replace the listings's properties with the new properties found in req.body */
-// Listing.findByIdAndUpdate(req.params.id, {
-//   name: req.body.name, 
-//   code: req.body.code    
-// });
-//  /*save the coordinates (located in req.results if there is an address property) */
-// if(req.results) {
-//   listing.coordinates = {
-//     latitude: req.results.lat, 
-//     longitude: req.results.lng
-//   };
-// }
-
-// /* Save the listing */
-// listing.save(function(err) {
-//   if(err) {
-//     console.log(err);
-//     res.status(400).send(err);
-//   } else {
-//     res.json(listing);
-//     console.log(listing)
-//   }
-//});
-//};
 //----------------------------------------------------------------------------------------------
 /* Delete a listing */
 exports.delete = function (req, res) {
@@ -127,7 +96,6 @@ exports.delete = function (req, res) {
       res.json(listing);
     }
   });
-
 };
 //----------------------------------------------------------------------------------------------
 
