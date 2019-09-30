@@ -112,7 +112,6 @@ describe('Listings CRUD tests', function() {
   {'code' : 'GMC'}
   This should resolve the issue. Although the test has failed our create function still 
   sends the listing to the database.
-
   You can comment the two coordinate tests until you have completed the code the 
   coordinates.server.controlelr.js file 
 */
@@ -131,9 +130,11 @@ describe('Listings CRUD tests', function() {
         res.body.name.should.equal('Dr. Gardner-McCunes Office');
         res.body.code.should.equal('GMC');
         res.body.address.should.equal('432 Newell Dr, Gainesville, FL 32611');
-        //I had two deviations of the latitude when sending requests so I put both
-        res.body.coordinates.latitude.should.equal(29.6405177||29.6433529);
-        res.body.coordinates.longitude.should.equal(-82.3422749);
+        res.body.coordinates.latitude.should.equal(29.6433529);
+        //res.body.coordinates.latitude.should.equal(29.6405177);
+        //res.body.coordinates.latitude.should.equal(29.6405177);
+        res.body.coordinates.longitude.should.equal(-82.3435069);
+        //res.body.coordinates.longitude.should.equal(-82.3422749);
         id2 = res.body._id;
         done();
       });
