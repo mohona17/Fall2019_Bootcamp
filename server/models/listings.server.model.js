@@ -11,7 +11,7 @@ var listingSchema = new Schema({
   /* your code here from Bootcamp Assignment #2 - ListingSchema.js File*/
   code: { type: String, required: true },
   name: { type: String, required: true },
-  coordinates: { latitude: Number, longitute: Number }, 
+  coordinates: { latitude: Number, longitude: Number }, 
   address: String
 });
 

@@ -20,18 +20,18 @@ var mongoose = require('mongoose'),
  */
 
 /* Create a listing */
+
 exports.create = function (req, res) {
 
   /* Instantiate a Listing */
   var listing = new Listing(req.body);
 
   /* save the coordinates (located in req.results if there is an address property) */
-  if (req.results) {
-    listing.coordinates = {
-      latitude: req.results.lat,
-      longitude: req.results.lng
-    };
+  if (req.body.address != null) {
+   listing.coordinates.latitude = req.results.latitude;
+   listing.coordinates.longitude = req.results.longitude; 
   }
+  //console.log(listing.coordinates);
 
   /* Then save the listing */
   listing.save(function (err) {
@@ -40,7 +40,7 @@ exports.create = function (req, res) {
       res.status(400).send(err);
     } else {
       res.json(listing);
-      console.log(listing)
+      //console.log(listing)
     }
   });
 };
@@ -58,7 +58,7 @@ exports.read = function (req, res) {
 /* Update a listing - note the order in which this function is called by the router*/
 
 exports.update = function (req, res) {
-    var listing = req.listing;
+  var listing = req.listing;
   Listing.findById(listing._id, function (err, listing) {
     if (err) {
       res.json(err);
@@ -67,13 +67,14 @@ exports.update = function (req, res) {
     listing.name = req.body.name;
     listing.code = req.body.code;
 
-    if(listing.address) listing.address = req.body.address;
+    if (listing.address) listing.address = req.body.address;
 
     if (req.body.coordinates) {
       listing.coordinates = {
         latitude: req.body.coordinates.latitude,
         longitude: req.body.coordinates.longitude
-      }};
+      }
+    };
 
     listing.save(function (err) {
       if (err)
