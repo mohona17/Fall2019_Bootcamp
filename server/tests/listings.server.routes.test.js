@@ -131,8 +131,8 @@ describe('Listings CRUD tests', function() {
         res.body.name.should.equal('Dr. Gardner-McCunes Office');
         res.body.code.should.equal('GMC');
         res.body.address.should.equal('432 Newell Dr, Gainesville, FL 32611');
-        //res.body.coordinates.latitude.should.equal(28.75054);
-        //res.body.coordinates.longitude.should.equal(-82.5001);
+         res.body.coordinates.latitude.should.equal(28.75054);
+         res.body.coordinates.longitude.should.equal(-82.5001);
         id2 = res.body._id;
         done();
       });
